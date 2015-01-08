@@ -1,0 +1,39 @@
+{
+    "name": "subbly/frontend"
+  , "description": "an easy as ABC template system for Subbly CMS"
+  , "license": "MIT"
+  , "authors": [
+        {
+            "name": "Benjamin Guedj"
+          , "email": "benjamin@subbly.com"
+          , "role": "Designer - founder"
+        }
+      , {
+            "name":  "Michael Lefebvre"
+          , "email": "michael@subbly.com"
+          , "role": "Developer"
+        }
+      , {
+            "name": "Nicolas Brousse"
+          , "email": "nicolas@subbly.com"
+          , "role": "Developer"
+        }
+    ]
+  , "require": 
+    {
+        "php":                ">=5.4.0"
+      , "illuminate/support": "4.2.*"
+      , "rcrowe/twigbridge":  "0.6.*"
+    }
+  , "autoload": 
+    {
+        "classmap": 
+        [
+            "src/migrations"
+        ]
+      , "psr-0": 
+        {
+            "Subbly\\Frontend\\": "src/"
+        }
+    }
+}
