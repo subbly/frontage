@@ -22,7 +22,7 @@
   , "require": 
     {
         "php":             ">=5.4.0"
-      , "subbly/frontage": "dev-master"
+      , "subbly/frontage": "@dev"
     }
   , "autoload": 
     {
