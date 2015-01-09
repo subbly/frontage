@@ -4,13 +4,12 @@ namespace Subbly\Frontend;
 
 use \Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\Routing;
-use \Illuminate\Routing\Controller;
 use \App;
 use \Config;
 use \View;
 
 class AutoController 
-  extends BaseController 
+  extends \Controller
 {
   /**
    * Defaults values
@@ -23,11 +22,6 @@ class AutoController
     , 'subcategory' => false
     , 'currentpage' => false
   );
-
-  /**
-   * The layout that should be used for responses.
-   */
-  protected $layout = 'layouts.master';
 
   protected function run()
   {
@@ -58,8 +52,6 @@ class AutoController
     $matcher = new Routing\Matcher\UrlMatcher( $routes, $context );
 
     // Tremplates
-
-    $options =  array( 'extension' => '.php' );
 
     try 
     {

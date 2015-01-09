@@ -6,4 +6,4 @@
  * your own controller
  */
 
-Route::any('{url}', 'Subbly\Frontend\Controllers\AutoController@run')->where('url', '.*');
+Route::any('{url}', 'Subbly\Frontend\AutoController@run')->where('url', '.*');
