@@ -11,7 +11,7 @@ A simple as ABC Handlebar based template system for Subbly CMS.
       , "includes": ["images"]
     } }}
       <li>
-        <a href="{{route this}}">{{name}}</a>
+        <a href="{{route 'product' this}}">{{name}}</a>
         {{created_at}}
       </li>
     {{/products}}
