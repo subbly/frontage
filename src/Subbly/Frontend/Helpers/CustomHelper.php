@@ -37,7 +37,7 @@ abstract class CustomHelper
     return false;
   }
 
-  public function ParseArgs($args)
+  public function parseArgs($args)
   {
     //regular expression generated from ((?<=")(?:\\.|[^"\\])*(?="))|(\w+)  with http://regex.larsolavtorvik.com/
     preg_match_all('/(?<=")[^"]*(?=")|(\w+)/i', $args, $result);
