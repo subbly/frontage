@@ -4,6 +4,8 @@ namespace Subbly\Frontend;
 
 use \Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\Routing;
+use \Handlebars\Handlebars;
+use \Handlebars\Loader\FilesystemLoader;
 use \App;
 use \Config;
 use \View;
@@ -68,12 +70,31 @@ class AutoController
       }
 
       $this->params['currentpage'] = $_route;
-      
-      return View::make('user.profile')
-              ->with( 'input', $this->params )
-              ->with( 'var', 1420485310 );
+
+      $partialsDir = Config::get('view.paths');
+
+      // Filesystem's options
+      $partialsLoader = new FilesystemLoader( $partialsDir, [
+              'extension' => 'html'
+          ]
+      );
+
+      // init Handlebars
+      $engine = new Handlebars([
+          'loader'          => $partialsLoader
+        , 'partials_loader' => $partialsLoader
+      ]);
+
+      // add Subbly's helpers
+      $engine->addHelper( 'products', new Helpers\ProductsHelper() );
+
+      # Will render the model to the templates/main.tpl template
+      // TODO: add cache
+      return $engine->render( 'main', [
+          'inputs' => $this->params
+      ]);
     }
-    catch( Routing\Exception\ResourceNotFoundException $e )
+    catch( \InvalidArgumentException $e )
     {
       App::abort( 404, 'Page Not Found' );
     }
