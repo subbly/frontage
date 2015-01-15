@@ -160,8 +160,11 @@ class ProductsHelper extends CustomHelper
 
     // Get products
     // -----------------
+    $products = \Subbly\Subbly::api('subbly.product')->all( $productsOptions )->toArray();
 
-    $tmp    = \Subbly\Subbly::api('subbly.product')->all( $productsOptions )->toArray();
+    $context->push( ['produts' => $products]);
+    
+    $tmp    = $products;
     $buffer = '';
 
     if( !$tmp) 
