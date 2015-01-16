@@ -30,9 +30,11 @@ class ProductsHelper extends CustomHelper
       // , 'limit'    => 2
       // , 'offset'   => 0
       // , 'order_by' => ['created_at' => 'desc']
-      // , 'where'    => [
-      //     ['quantity', '=', 1]
-      //   ]
+        'where'    => [
+           // ['quantity', '=', 1]
+            ['status', '!=', 'draft']
+          , ['status', '!=', 'hidden']
+        ]
     ];
 
     // Includes
@@ -51,7 +53,7 @@ class ProductsHelper extends CustomHelper
       isset( $props['where'] ) 
       && is_array( $props['where'] )
     ) {
-      $productsOptions['where'] = [];
+      // $productsOptions['where'] = [];
 
       foreach( $props['where'] as $condition )
       {
@@ -162,7 +164,7 @@ class ProductsHelper extends CustomHelper
     // -----------------
     $products = \Subbly\Subbly::api('subbly.product')->all( $productsOptions )->toArray();
 
-    $context->push( ['produts' => $products]);
+    $context->push( ['products' => $products]);
     
     $tmp    = $products;
     $buffer = '';

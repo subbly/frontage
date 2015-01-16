@@ -22,7 +22,7 @@ class UrlHelper extends CustomHelper
    */
   public function execute( Template $template, Context $context, $args, $source )
   {
-    $buffer       = '#';
+    $buffer       = \URL::to('/');
     $props        = $this->parseProps( $args, $context );
     $args         = $template->parseArguments( $args );
     $routePattern = false;
@@ -57,11 +57,11 @@ class UrlHelper extends CustomHelper
 
     if( !$props && $countAgrs === 2 && $args[1] == 'this' )
     {
-      return $this->buildUri( $context->get('this'), $routePattern );
+      return $this->buildUri( $context->get('this'), $routePattern, $buffer );
     }
     else if( $props && $countAgrs === 1 )
     {
-      return $this->buildUri( $props, $routePattern );
+      return $this->buildUri( $props, $routePattern, $buffer );
     }
     else
     {
@@ -69,10 +69,10 @@ class UrlHelper extends CustomHelper
     }
   }
 
-  private function buildUri( $context, $schema )
+  private function buildUri( $context, $schema, $root )
   {
     // find matches against the regex and replaces them the callback function.
-    return preg_replace_callback(
+    return $root . preg_replace_callback(
 
        // Matches parts to be replaced: '{var}'
        '/(\{.*?\})/',

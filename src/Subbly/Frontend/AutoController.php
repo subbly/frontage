@@ -31,6 +31,9 @@ class AutoController
     $currentTheme = Config::get('subbly.theme');
 
     $themePath    = TPL_PUBLIC_PATH . DS . $currentTheme . DS;
+    $themePublic  = \URL::to( '/themes/' . $currentTheme . DS );
+
+    $settings     = \Subbly\Subbly::api('subbly.setting')->all()->toArray();
 
     $request = Request::createFromGlobals();
     $routes  = new Routing\RouteCollection();
@@ -71,7 +74,7 @@ class AutoController
 
       $this->params['currentpage'] = $_route;
 
-      $partialsDir = Config::get('view.paths');
+      $partialsDir = $themePath;
 
       // Filesystem's options
       $partialsLoader = new FilesystemLoader( $partialsDir, [
@@ -87,11 +90,20 @@ class AutoController
 
       // add Subbly's helpers
       $engine->addHelper( 'products', new Helpers\ProductsHelper() );
+      $engine->addHelper( 'product',  new Helpers\ProductHelper() );
+      $engine->addHelper( 'images',   new Helpers\ProductImagesHelper() );
+      $engine->addHelper( 'image',    new Helpers\ProductDefaultImageHelper() );
+      $engine->addHelper( 'url',      new Helpers\UrlHelper() );
+      $engine->addHelper( 'assets',   new Helpers\AssetsHelper() );
+      $engine->addHelper( 'price',    new Helpers\PriceHelper() );
+      $engine->addHelper( 'compare',  new Helpers\CompareHelper() );
 
       # Will render the model to the templates/main.tpl template
       // TODO: add cache
-      return $engine->render( 'main', [
-          'inputs' => $this->params
+      return $engine->render( $_route, [
+          'inputs'   => $this->params
+        , 'themes'   => $themePublic
+        , 'settings' => $settings
       ]);
     }
     catch( \InvalidArgumentException $e )
