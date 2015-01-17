@@ -33,8 +33,6 @@ class CompareHelper extends CustomHelper
     $lvalue   = $context->get( $args[0] );
     $rvalue   = $context->get( $args[1] );
 
-// dd( $lvalue, $rvalue );
-
     $equal       = function($l,$r) { return $l == $r; };
     $strictequal = function($l,$r) { return $l === $r; };
     $different   = function($l,$r) { return $l != $r; };
@@ -61,17 +59,21 @@ class CompareHelper extends CustomHelper
 
     $context->push($context->last());
 
-    if ($tmp) {
-        $template->setStopToken('else');
-        $buffer = $template->render($context);
-        $template->setStopToken(false);
-        $template->discard($context);
-    } else {
-        $template->setStopToken('else');
-        $template->discard($context);
-        $template->setStopToken(false);
-        $buffer = $template->render($context);
+    if( $tmp )
+    {
+      $template->setStopToken('else');
+      $buffer = $template->render($context);
+      $template->setStopToken(false);
+      $template->discard($context);
     }
+    else
+    {
+      $template->setStopToken('else');
+      $template->discard($context);
+      $template->setStopToken(false);
+      $buffer = $template->render($context);
+    }
+    
     $context->pop();
 
     return $buffer;

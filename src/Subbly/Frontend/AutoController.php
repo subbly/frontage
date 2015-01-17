@@ -89,14 +89,21 @@ class AutoController
       ]);
 
       // add Subbly's helpers
-      $engine->addHelper( 'products', new Helpers\ProductsHelper() );
-      $engine->addHelper( 'product',  new Helpers\ProductHelper() );
-      $engine->addHelper( 'images',   new Helpers\ProductImagesHelper() );
-      $engine->addHelper( 'image',    new Helpers\ProductDefaultImageHelper() );
-      $engine->addHelper( 'url',      new Helpers\UrlHelper() );
-      $engine->addHelper( 'assets',   new Helpers\AssetsHelper() );
-      $engine->addHelper( 'price',    new Helpers\PriceHelper() );
-      $engine->addHelper( 'compare',  new Helpers\CompareHelper() );
+      $engine->addHelper( 'products',      new Helpers\ProductsHelper() );
+      $engine->addHelper( 'product',       new Helpers\ProductHelper() );
+      $engine->addHelper( 'images',        new Helpers\ProductImagesHelper() );
+      $engine->addHelper( 'image',         new Helpers\ProductDefaultImageHelper() );
+      $engine->addHelper( 'url',           new Helpers\UrlHelper() );
+      $engine->addHelper( 'assets',        new Helpers\AssetsHelper() );
+      $engine->addHelper( 'price',         new Helpers\PriceHelper() );
+      $engine->addHelper( 'compare',       new Helpers\CompareHelper() );
+      $engine->addHelper( 'upper',         new Helpers\UpperHelper() );
+      $engine->addHelper( 'lower',         new Helpers\LowerHelper() );
+      $engine->addHelper( 'capitalize',    new Helpers\CapitalizeHelper() );
+      $engine->addHelper( 'capitalizeAll', new Helpers\CapitalizeAllHelper() );
+      $engine->addHelper( 'formatDate',    new Helpers\FormatDateHelper() );
+      $engine->addHelper( 'truncate',      new Helpers\TruncateHelper() );
+      $engine->addHelper( 'default',       new Helpers\DefaultHelper() );
 
       # Will render the model to the templates/main.tpl template
       // TODO: add cache
@@ -104,6 +111,64 @@ class AutoController
           'inputs'   => $this->params
         , 'themes'   => $themePublic
         , 'settings' => $settings
+        // tests
+        , 'name'     => 'Test PAGE'
+        , 'isActive' => false
+        , 'other_genres' => 
+          [
+              'genres' => 
+              [
+                  'yop'
+                , 'test'
+              ]
+          ]
+        , 'genres' => 
+          [
+                'Hip-Hop'
+              , 'Rap'
+              , 'Techno'
+              , 'Country'
+          ]
+        , 'object' => [
+            'key' => 'value'
+          ]
+        , 'cars' => 
+          [
+            [
+              'category' => 'Foreign',
+              'count' => 4,
+              'list' => [
+                  'Toyota',
+                  'Kia',
+                  'Honda',
+                  'Mazda'
+              ]
+            ]
+          , [
+              'category' => 'WTF',
+              'count' => 1,
+              'list' => [
+                  'Fiat'
+              ]
+            ]
+          , [
+              'category' => 'Luxury',
+              'count' => 2,
+              'list' => [
+                  'Mercedes Benz',
+                  'BMW'
+              ]
+            ]
+          , [
+              'category' => 'Rich People Shit',
+              'count' => 3,
+              'list' => [
+                  'Ferrari',
+                  'Bugatti',
+                  'Rolls Royce'
+              ]
+            ]
+        ]
       ]);
     }
     catch( \InvalidArgumentException $e )
