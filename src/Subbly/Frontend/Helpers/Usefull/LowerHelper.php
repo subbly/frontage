@@ -1,16 +1,17 @@
 <?php
-namespace Subbly\Frontend\Helpers;
+namespace Subbly\Frontend\Helpers\Usefull;
 
-use \Handlebars\Context;
-use \Handlebars\Helper;
-use \Handlebars\Template;
+use Handlebars\Context;
+use Handlebars\Helper;
+use Handlebars\Template;
+use Subbly\Frontend\Helpers\CustomHelper;
 
-class CapitalizeHelper extends CustomHelper
+class LowerHelper extends CustomHelper
 {
   /**
    * Execute the helper
-   * {{capitalize 'some word'}}
-   * {{capitalize name}}
+   * {{upper 'some word'}}
+   * {{upper name}}
    *
    * @param \Handlebars\Template $template The template instance
    * @param \Handlebars\Context  $context  The current context
@@ -28,6 +29,6 @@ class CapitalizeHelper extends CustomHelper
     if( count( $args ) != 1 )
       return $buffer;
 
-    return ucfirst( mb_strtolower( $context->get( $args[0] ) ) );
+    return mb_strtolower( $context->get( $args[0] ) );
   }
 }

@@ -6,4 +6,9 @@
  * your own controller
  */
 
-Route::any('{url}', 'Subbly\Frontend\AutoController@run')->where('url', '.*');
+Route::post('/login', array(
+    'as'   => 'frontage.form.login'
+  , 'uses' => 'Subbly\Frontend\Controllers\Login@run'
+));
+
+Route::any('{url}', 'Subbly\Frontend\Controllers\Frontage@run')->where('url', '.*');

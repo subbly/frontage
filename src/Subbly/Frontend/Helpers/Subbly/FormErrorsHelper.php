@@ -1,11 +1,12 @@
 <?php
-namespace Subbly\Frontend\Helpers;
+namespace Subbly\Frontend\Helpers\Subbly;
 
-use \Handlebars\Context;
-use \Handlebars\Helper;
-use \Handlebars\Template;
+use Handlebars\Context;
+use Handlebars\Helper;
+use Handlebars\Template;
+use Subbly\Frontend\Helpers\CustomHelper;
 
-class AssetsHelper extends CustomHelper
+class FormErrorsHelper extends CustomHelper
 {
   /**
    * Execute the helper
@@ -23,14 +24,11 @@ class AssetsHelper extends CustomHelper
   public function execute( Template $template, Context $context, $args, $source )
   {
     $buffer = '';
+    $errors = \Session::get('errors', new \Illuminate\Support\MessageBag);
 
-    $args = $template->parseArguments( $args );
+    if( $errors->any() )
+      return 'errors';
 
-    if( count( $args ) != 1 )
-      return $buffer;
-
-    $themePath = $context->get('themes');
-
-    return $themePath . DS . $args[0]->getString();
+    return $buffer;
   }
 }

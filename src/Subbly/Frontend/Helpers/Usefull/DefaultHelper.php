@@ -1,9 +1,10 @@
 <?php
-namespace Subbly\Frontend\Helpers;
+namespace Subbly\Frontend\Helpers\Usefull;
 
-use \Handlebars\Context;
-use \Handlebars\Helper;
-use \Handlebars\Template;
+use Handlebars\Context;
+use Handlebars\Helper;
+use Handlebars\Template;
+use Subbly\Frontend\Helpers\CustomHelper;
 
 class DefaultHelper extends CustomHelper
 {

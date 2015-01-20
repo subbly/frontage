@@ -1,11 +1,12 @@
 <?php
-namespace Subbly\Frontend\Helpers;
+namespace Subbly\Frontend\Helpers\Usefull;
 
-use \Handlebars\Context;
-use \Handlebars\Helper;
-use \Handlebars\Template;
+use Handlebars\Context;
+use Handlebars\Helper;
+use Handlebars\Template;
+use Subbly\Frontend\Helpers\CustomHelper;
 
-class LowerHelper extends CustomHelper
+class UpperHelper extends CustomHelper
 {
   /**
    * Execute the helper
@@ -28,6 +29,13 @@ class LowerHelper extends CustomHelper
     if( count( $args ) != 1 )
       return $buffer;
 
-    return mb_strtolower( $context->get( $args[0] ) );
+    if( $args[0] instanceof \Handlebars\String )
+    {
+      return mb_strtoupper( $args[0]->getString() );
+    }
+    else
+    {
+      return mb_strtoupper( $context->get( $args[0] ) );
+    }
   }
 }
