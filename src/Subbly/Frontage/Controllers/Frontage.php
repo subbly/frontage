@@ -89,34 +89,31 @@ class Frontage
         , 'partials_loader' => $partialsLoader
       ]);
 
-      // add Subbly's helpers
-      $engine->addHelper( 'products',      new Helpers\Subbly\ProductsHelper() );
-      $engine->addHelper( 'product',       new Helpers\Subbly\ProductHelper() );
-      $engine->addHelper( 'images',        new Helpers\Subbly\ProductImagesHelper() );
-      $engine->addHelper( 'image',         new Helpers\Subbly\ProductDefaultImageHelper() );
-      $engine->addHelper( 'url',           new Helpers\Subbly\UrlHelper() );
-      $engine->addHelper( 'assets',        new Helpers\Subbly\AssetsHelper() );
-      $engine->addHelper( 'price',         new Helpers\Subbly\PriceHelper() );
-      $engine->addHelper( 'formErrors',    new Helpers\Subbly\FormErrorsHelper() );
-      $engine->addHelper( 'isUserLogin',   new Helpers\Subbly\UserCheckHelper() );
-      $engine->addHelper( 'compare',       new Helpers\Usefull\CompareHelper() );
-      $engine->addHelper( 'upper',         new Helpers\Usefull\UpperHelper() );
-      $engine->addHelper( 'lower',         new Helpers\Usefull\LowerHelper() );
-      $engine->addHelper( 'capitalize',    new Helpers\Usefull\CapitalizeHelper() );
-      $engine->addHelper( 'capitalizeAll', new Helpers\Usefull\CapitalizeAllHelper() );
-      $engine->addHelper( 'formatDate',    new Helpers\Usefull\FormatDateHelper() );
-      $engine->addHelper( 'truncate',      new Helpers\Usefull\TruncateHelper() );
-      $engine->addHelper( 'default',       new Helpers\Usefull\DefaultHelper() );
-      $engine->addHelper( 'loginFrom',     new Helpers\Post\LoginHelper() );
+      $helpers = new \JustBlackBird\HandlebarsHelpers\Helpers();
+      
+      // init Handlebars
+      $engine = new Handlebars([
+          'loader'          => $partialsLoader
+        , 'partials_loader' => $partialsLoader
+        , 'helpers'         => $helpers
+      ]);
 
-      // Layout helpers
-      $storage = new Helpers\Layout\BlockStorage();
+      $nativeHelpers = Config::get('frontage::helpers');
 
-      $engine->addHelper('block',            new Helpers\Layout\BlockHelper($storage));
-      $engine->addHelper('extends',          new Helpers\Layout\ExtendsHelper($storage));
-      $engine->addHelper('override',         new Helpers\Layout\OverrideHelper($storage));
-      $engine->addHelper('ifOverridden',     new Helpers\Layout\IfOverriddenHelper($storage));
-      $engine->addHelper('unlessOverridden', new Helpers\Layout\UnlessOverriddenHelper($storage));
+      // Load native Helpers
+      foreach( $nativeHelpers as $key => $class )
+      {
+        $engine->addHelper( $key, new $class() );
+      }
+
+      // $engine->addHelper( 'compare',       new Helpers\Usefull\CompareHelper() );
+      // $engine->addHelper( 'upper',         new Helpers\Usefull\UpperHelper() );
+      // $engine->addHelper( 'lower',         new Helpers\Usefull\LowerHelper() );
+      // $engine->addHelper( 'capitalize',    new Helpers\Usefull\CapitalizeHelper() );
+      // $engine->addHelper( 'capitalizeAll', new Helpers\Usefull\CapitalizeAllHelper() );
+      // $engine->addHelper( 'formatDate',    new Helpers\Usefull\FormatDateHelper() );
+      // $engine->addHelper( 'truncate',      new Helpers\Usefull\TruncateHelper() );
+      // $engine->addHelper( 'default',       new Helpers\Usefull\DefaultHelper() );
 
 
       # Will render the model to the templates/main.tpl template
