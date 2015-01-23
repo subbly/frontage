@@ -3,18 +3,15 @@
 /*
  * Register Debugbar assets's path
  */
-if( Config::get('app.debug', false) )
-{
-  Route::get('_debugbar/assets/stylesheets', array(
-      'uses' => 'Barryvdh\Debugbar\Controllers\AssetController@css'
-    , 'as'   => 'debugbar.assets.css'
-  ));
+Route::get('_debugbar/assets/stylesheets', array(
+    'uses' => 'Barryvdh\Debugbar\Controllers\AssetController@css'
+  , 'as'   => 'debugbar.assets.css'
+));
 
-   Route::get('_debugbar/assets/javascript', array(
-      'uses' => 'Barryvdh\Debugbar\Controllers\AssetController@js'
-    , 'as'   => 'debugbar.assets.js'
-  ));
-}
+ Route::get('_debugbar/assets/javascript', array(
+    'uses' => 'Barryvdh\Debugbar\Controllers\AssetController@js'
+  , 'as'   => 'debugbar.assets.js'
+));
 
 /*
  * Register template driven Frontage
