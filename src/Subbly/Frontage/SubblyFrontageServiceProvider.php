@@ -32,7 +32,16 @@ class SubblyFrontageServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		/*
+		 * Register the service provider for the dependency.
+		 */
+		$this->app->register('Barryvdh\Debugbar\ServiceProvider');
+
+		/*
+		 * Create aliases for the dependency.
+		 */
+		$loader = \Illuminate\Foundation\AliasLoader::getInstance();
+		$loader->alias('Debugbar', 'Barryvdh\Debugbar\Facade');
 	}
 
 	/**
