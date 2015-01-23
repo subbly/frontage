@@ -1,4 +1,4 @@
-Subbly's Frontend
+Subbly's Frontage
 ===
 
 A simple as ABC Handlebar based template system for Subbly CMS.

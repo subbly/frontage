@@ -1,5 +1,5 @@
 {
-    "name": "subbly/frontend"
+    "name": "subbly/frontage"
   , "description": "an easy as ABC template system for Subbly CMS"
   , "license": "MIT"
   , "authors": [
@@ -21,7 +21,9 @@
     ]
   , "require": 
     {
-        "php":                  ">=5.4.0"
+        "php":                       ">=5.4.0"
+      , "xamin/handlebars.php":      "dev-master" 
+      , "barryvdh/laravel-debugbar": "1.*"
     }
   , "autoload": 
     {
@@ -31,7 +33,7 @@
         ]
       , "psr-0": 
         {
-            "Subbly\\Frontend\\": "src/"
+            "Subbly\\Frontage\\": "src/"
         }
     }
 }
