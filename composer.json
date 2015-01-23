@@ -22,7 +22,7 @@
   , "require": 
     {
         "php":                       ">=5.4.0"
-      , "xamin/handlebars.php":      "dev-master@dev" 
+      , "xamin/handlebars.php":      "0.10.0" 
       , "barryvdh/laravel-debugbar": "1.*"
     }
   , "autoload": 
