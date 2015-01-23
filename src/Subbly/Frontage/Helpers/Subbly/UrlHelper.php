@@ -38,7 +38,7 @@ class UrlHelper extends CustomHelper
     }
     else
     {
-      $routesMap = \Config::get('subbly.frontendUri');
+      $routesMap = \Config::get('subbly.frontageUri');
 
       foreach( $routesMap as $uri => $page )
       {

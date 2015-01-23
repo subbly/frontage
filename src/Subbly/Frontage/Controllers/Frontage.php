@@ -28,7 +28,7 @@ class Frontage
 
   protected function run()
   {
-    $routesMap    = Config::get('subbly.FrontageUri'); 
+    $routesMap    = Config::get('subbly.frontageUri'); 
     $currentTheme = Config::get('subbly.theme');
 
     $themePath    = TPL_PUBLIC_PATH . DS . $currentTheme . DS;
