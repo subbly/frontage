@@ -21,9 +21,10 @@
     ]
   , "require": 
     {
-        "php":                       ">=5.4.0"
-      , "xamin/handlebars.php":      "0.10.0" 
-      , "barryvdh/laravel-debugbar": "1.*"
+        "php":                                 ">=5.4.0"
+      , "xamin/handlebars.php":                "0.10.0" 
+      , "ustblackbird/handlebars.php-helpers": "0.3.0"
+      , "barryvdh/laravel-debugbar":           "1.*"
     }
   , "autoload": 
     {
