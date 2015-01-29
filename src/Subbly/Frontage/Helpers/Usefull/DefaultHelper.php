@@ -24,7 +24,7 @@ class DefaultHelper extends CustomHelper
     $args = $template->parseArguments( $args );
 
     if( count( $args ) < 2 )
-      throw new Error("Handlerbars Helper 'default' needs 2 parameters");
+      throw new \Exception("Handlerbars Helper 'default' needs 2 parameters");
 
     $asked   = $context->get( $args[0] );
     $default = $context->get( $args[1] );

@@ -28,7 +28,7 @@ class CompareHelper extends CustomHelper
     $args = $template->parseArguments( $args );
 
     if( count( $args ) < 2 )
-      throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+      throw new \Exception("Handlerbars Helper 'compare' needs 2 parameters");
 
     $operator = ( isset( $args[2] ) ) ? $args[2]->getString() : '==';
     $lvalue   = $context->get( $args[0] );
@@ -53,7 +53,7 @@ class CompareHelper extends CustomHelper
     ];
 
     if (!$operators[ $operator ] )
-        throw new Error("Handlerbars Helper 'compare' doesn't know the operator " . $operator );
+        throw new \Exception("Handlerbars Helper 'compare' doesn't know the operator " . $operator );
 
     $tmp    = $$operators[ $operator ]( $lvalue, $rvalue );
     $buffer = '';
