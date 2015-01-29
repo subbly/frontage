@@ -25,11 +25,19 @@ class LoginHelper extends CustomHelper
     );
     
     $props = $this->parseProps( $args, $context );
+    $args  = $template->parseArguments( $args );
 
     $settings = ( $props ) 
                 ? array_merge( $default, $props )
                 : $default;
 
-    return \Form::open( $settings );
+    $html = \Form::open( $settings );
+
+    if( count( $args ) == 1 && $args[0] instanceof \Handlebars\String )
+    {
+      $html .= \Form::hidden('redirect', $this->getRouteUri( $args[0]->getString() ) );
+    }
+
+    return $html;
   }
 }
