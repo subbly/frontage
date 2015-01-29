@@ -20,8 +20,9 @@ Route::get('_debugbar/assets/stylesheets', array(
  */
 
 Route::post('/login', array(
-    'as'   => 'frontage.form.login'
-  , 'uses' => 'Subbly\Frontage\Controllers\Login@run'
+    'as'     => 'frontage.form.login'
+  , 'before' =>'csrf'
+  , 'uses'   => 'Subbly\Frontage\Controllers\Login@run'
 ));
 
 Route::any('{url}', 'Subbly\Frontage\Controllers\Frontage@run')->where('url', '.*');
