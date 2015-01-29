@@ -79,9 +79,8 @@ class Frontage
 
       // Filesystem's options
       $partialsLoader = new FilesystemLoader( $partialsDir, [
-              'extension' => 'html'
-          ]
-      );
+          'extension' => 'html'
+      ]);
 
       // init Handlebars
       $engine = new Handlebars([
@@ -106,31 +105,83 @@ class Frontage
         $engine->addHelper( $key, new $class() );
       }
 
-      // $engine->addHelper( 'compare',       new Helpers\Usefull\CompareHelper() );
-      // $engine->addHelper( 'upper',         new Helpers\Usefull\UpperHelper() );
-      // $engine->addHelper( 'lower',         new Helpers\Usefull\LowerHelper() );
-      // $engine->addHelper( 'capitalize',    new Helpers\Usefull\CapitalizeHelper() );
-      // $engine->addHelper( 'capitalizeAll', new Helpers\Usefull\CapitalizeAllHelper() );
-      // $engine->addHelper( 'formatDate',    new Helpers\Usefull\FormatDateHelper() );
-      // $engine->addHelper( 'truncate',      new Helpers\Usefull\TruncateHelper() );
-      // $engine->addHelper( 'default',       new Helpers\Usefull\DefaultHelper() );
-
-
       # Will render the model to the templates/main.tpl template
       // TODO: add cache
       return $engine->render( $_route, [
-          'inputs'   => $this->params
-        , 'themes'   => $themePublic
-        , 'settings' => $settings
+          'inputs'      => $this->params
+        , 'themes'      => $themePublic
+        , 'settings'    => $settings
+        , 'isUserLogin' => $isUserLogin
+        , 'user'        => $currentUser
+        // tests
+        , 'name'     => 'Test PAGE'
+        , 'isActive' => false
+        , 'first'    => true
+        , 'second'   => 'a'
+        , 'other_genres' => 
+          [
+              'genres' => 
+              [
+                  'yop'
+                , 'test'
+              ]
+          ]
+        , 'genres' => 
+          [
+                'Hip-Hop'
+              , 'Rap'
+              , 'Techno'
+              , 'Country'
+          ]
+        , 'object' => [
+            'key' => 'value'
+          ]
+        , 'cars' => 
+          [
+            [
+              'category' => 'Foreign',
+              'count' => 4,
+              'list' => [
+                  'Toyota',
+                  'Kia',
+                  'Honda',
+                  'Mazda'
+              ]
+            ]
+          , [
+              'category' => 'WTF',
+              'count' => 1,
+              'list' => [
+                  'Fiat'
+              ]
+            ]
+          , [
+              'category' => 'Luxury',
+              'count' => 2,
+              'list' => [
+                  'Mercedes Benz',
+                  'BMW'
+              ]
+            ]
+          , [
+              'category' => 'Rich People Shit',
+              'count' => 3,
+              'list' => [
+                  'Ferrari',
+                  'Bugatti',
+                  'Rolls Royce'
+              ]
+            ]
+        ]
       ]);
     }
     catch( \InvalidArgumentException $e )
     {
       App::abort( 404, $e->getMessage() );
     }
-    catch( Exception $e )
+    catch( \Exception $e )
     {
-      App::abort( 500, 'An error occurred' );
+      App::abort( 500, $e->getMessage() );
     }
   }
 }
