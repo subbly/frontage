@@ -6,6 +6,7 @@ A simple as ABC Handlebar based template system for Subbly CMS.
 
 ## Exemple
 
+    <ul>
     {{#products with {
         "category": "men"
       , "includes": ["images"]
