@@ -7,6 +7,7 @@ use Symfony\Component\Routing;
 use Handlebars\Handlebars;
 use Handlebars\Loader\FilesystemLoader;
 use Subbly\Frontage\Helpers as Helpers;
+use Subbly\Subbly as Subbly;
 use App;
 use Config;
 use View;
@@ -24,6 +25,9 @@ class Frontage
     , 'category'    => false
     , 'subcategory' => false
     , 'currentpage' => false
+    , 'addressId'   => false
+    , 'orderId'     => false
+    , 'productId'   => false
   );
 
   protected function run()
@@ -34,7 +38,10 @@ class Frontage
     $themePath    = TPL_PUBLIC_PATH . DS . $currentTheme . DS;
     $themePublic  = \URL::to( '/themes/' . $currentTheme . DS );
 
-    $settings     = \Subbly\Subbly::api('subbly.setting')->all()->toArray();
+    // Queries
+    $settings     = Subbly::api('subbly.setting')->all()->toArray();
+    $isUserLogin  = Subbly::api('subbly.user')->check();
+
 
     $request = Request::createFromGlobals();
     $routes  = new Routing\RouteCollection();
@@ -63,7 +70,42 @@ class Frontage
     {
       $routeParams = $matcher->match( $request->getPathInfo() );
 
+      // Extract the $_route variable
       extract( $routeParams, EXTR_SKIP );
+
+      // match loggued user restriction
+      preg_match( '/([[:ascii:]]+)(@([[:ascii:]]+)?)/i', $_route, $matches );
+
+      // Current User
+      $currentUser = ( $isUserLogin )
+                     ? Subbly::api('subbly.user')->currentUser()
+                     : false;
+
+      // need auth
+      if( count( $matches ) > 0 )
+      {
+        // user is not logged
+        if( !$currentUser )
+        {
+          // if there a redirect route declared
+          if( isset( $matches[3] ) && !empty( $matches[3] ) )
+          {
+            $url = array_search( $matches[3], $routesMap );
+
+            // if redirect route exist
+            if( $url )
+            {
+              // TODO: add error flash message
+              return \Redirect::to( $url );            
+            }
+          }
+          
+          throw new \InvalidArgumentException('No matching url', 1);
+        }
+
+        // route's filename 
+        $_route = $matches[1];
+      }
 
       foreach( $routeParams as $key => $value )
       {

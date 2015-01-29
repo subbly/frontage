@@ -23,7 +23,7 @@ class ProductHelper extends CustomHelper
     $args  = $this->parseArgs( $args );
 
     $id = ( count( $args ) === 0 )
-          ? $context->get('inputs.id')
+          ? $context->get('inputs.productId')
           : $args[0];
 
 

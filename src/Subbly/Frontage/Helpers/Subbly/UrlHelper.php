@@ -42,7 +42,10 @@ class UrlHelper extends CustomHelper
 
       foreach( $routesMap as $uri => $page )
       {
-        if( $page == $args[0] )
+        // prevent restricted page
+        $page = explode('@', $page);
+
+        if( $page[0] == $args[0] )
         {
           $routePattern = $uri;
           preg_match_all( '/\{(.*?)\}/', $uri, $matches );
