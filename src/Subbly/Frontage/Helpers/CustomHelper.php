@@ -5,9 +5,21 @@ namespace Subbly\Frontage\Helpers;
 abstract class CustomHelper 
   implements \Handlebars\Helper
 {
+  protected function getRouteUri( $routeName )
+  {
+    $routesMap = \Config::get('subbly.frontageUri');
+
+    foreach( $routesMap as $uri => $page )
+    {
+      if( $page == $routeName )
+      {
+        return $uri;
+      }
+    }
+  }
+
   public function parseProps( &$args, $context )
   {
-     // $chaine = '{{#projects with {"category": "women", "subcategory": "shoes"}}}';
     $args = preg_replace( "/[\n\r]/", '', $args );
 
     $pattern = '/with (\{(.*?)\})/';
@@ -25,7 +37,17 @@ abstract class CustomHelper
           preg_match( '/^@@(.*)/', $value, $property );
 
           if( isset( $property[1] ) )
+          {
             $properties[ $key ] = $context->get( $property[1] );
+            break;            
+          }
+
+          preg_match( '/^@(.*)/', $value, $property );
+
+          if( isset( $property[1] ) )
+          {
+            $properties[ $key ] = $context->get( $property[1] );
+          }
         }
       }
 
