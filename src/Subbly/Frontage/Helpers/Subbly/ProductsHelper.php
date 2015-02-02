@@ -165,25 +165,22 @@ class ProductsHelper extends CustomHelper
     // -----------------
     $products = \Subbly\Subbly::api('subbly.product')->all( $productsOptions )->toArray();
 
-    $context->push( ['products' => $products]);
-    
-    $tmp    = $products;
     $buffer = '';
 
-    if( !$tmp) 
+    if( !$products) 
     {
       $template->setStopToken('else');
       $template->discard();
       $template->setStopToken(false);
       $buffer = $template->render($context);
     }
-    elseif( is_array( $tmp ) || $tmp instanceof \Traversable )
+    elseif( is_array( $products ) || $products instanceof \Traversable )
     {
-      $isList = is_array($tmp) && (array_keys($tmp) === range(0, count($tmp) - 1));
+      $isList = is_array($products) && (array_keys($products) === range(0, count($products) - 1));
       $index = 0;
-      $lastIndex = $isList ? (count($tmp) - 1) : false;
+      $lastIndex = $isList ? (count($products) - 1) : false;
 
-      foreach( $tmp as $key => $var ) 
+      foreach( $products as $key => $var ) 
       {
         $specialVariables = array(
             '@index' => $index,

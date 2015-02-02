@@ -45,31 +45,25 @@ class ProductHelper extends CustomHelper
 
     if( count( $product ) != 1 )
     {
-      $tmp = false;
-    }
-    else
-    {
-      $context->push( [ 'product' => $product[0] ] );
-      
-      $tmp    = $product;      
+      $product = false;
     }
 
     $buffer = '';
 
-    if( !$tmp) 
+    if( !$product) 
     {
       $template->setStopToken('else');
       $template->discard();
       $template->setStopToken(false);
       $buffer = $template->render($context);
     }
-    elseif( is_array( $tmp ) || $tmp instanceof \Traversable )
+    elseif( is_array( $product ) || $product instanceof \Traversable )
     {
-      $isList = is_array($tmp) && (array_keys($tmp) === range(0, count($tmp) - 1));
+      $isList = is_array($product) && (array_keys($product) === range(0, count($product) - 1));
       $index = 0;
-      $lastIndex = $isList ? (count($tmp) - 1) : false;
+      $lastIndex = $isList ? (count($product) - 1) : false;
 
-      foreach( $tmp as $key => $var ) 
+      foreach( $product as $key => $var ) 
       {
         $specialVariables = array(
             '@index' => $index,
