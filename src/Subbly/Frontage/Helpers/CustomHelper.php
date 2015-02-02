@@ -34,19 +34,12 @@ abstract class CustomHelper
       {
         if( is_string( $value ) )
         {
-          preg_match( '/^@@(.*)/', $value, $property );
-
-          if( isset( $property[1] ) )
-          {
-            $properties[ $key ] = $context->get( $property[1] );
-            break;            
-          }
-
           preg_match( '/^@(.*)/', $value, $property );
 
           if( isset( $property[1] ) )
           {
             $properties[ $key ] = $context->get( $property[1] );
+            break;
           }
         }
       }
@@ -59,9 +52,8 @@ abstract class CustomHelper
     return false;
   }
 
-  public function parseArgs($args)
+  public function parseArgs( $args )
   {
-    //regular expression generated from ((?<=")(?:\\.|[^"\\])*(?="))|(\w+)  with http://regex.larsolavtorvik.com/
     preg_match_all('/(?<=")[^"]*(?=")|(\w+)/i', $args, $result);
     return $result[0];
   }
