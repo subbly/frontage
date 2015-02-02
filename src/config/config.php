@@ -7,7 +7,7 @@ return [
       , 'image'         => 'Subbly\Frontage\Helpers\Subbly\ProductDefaultImageHelper'
       , 'url'           => 'Subbly\Frontage\Helpers\Subbly\UrlHelper'
       , 'assets'        => 'Subbly\Frontage\Helpers\Subbly\AssetsHelper'
-      , 'price'         => 'Subbly\Frontage\Helpers\Subbly\PriceHelper'
+      , 'formatPrice'   => 'Subbly\Frontage\Helpers\Subbly\PriceHelper'
       , 'formErrors'    => 'Subbly\Frontage\Helpers\Subbly\FormErrorsHelper'
       , 'userAddresses' => 'Subbly\Frontage\Helpers\Subbly\UserAddressesHelper'
       , 'userAddress'   => 'Subbly\Frontage\Helpers\Subbly\UserAddressHelper'
