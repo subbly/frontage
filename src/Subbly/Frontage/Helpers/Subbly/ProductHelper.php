@@ -20,71 +20,66 @@ class ProductHelper extends CustomHelper
    */
   public function execute( Template $template, Context $context, $args, $source )
   {
-    $args  = $this->parseArgs( $args );
+    $props  = $this->parseProps( $args, $context );
+    $args   = $this->parseArgs( $args );
+    $field  = 'id';
+    $id     = false;
+    $buffer = '';
 
-    $id = ( count( $args ) === 0 )
-          ? $context->get('inputs.productId')
-          : $args[0];
+    // no properties
+    // so product's ID is in URL
+    // or is th first arguments
+    if( !$props )
+    {
+      $id = ( count( $args ) === 0 )
+            ? $context->get('inputs.productId')
+            : $args[0];
+    }
+    else
+    {
+      if( array_key_exists( 'productId', $props ) )
+      {
+        $id = $props['productId'];
+      }
+      else if( array_key_exists( 'productSku', $props ) )
+      {
+        $id    = $props['productSku'];
+        $field = 'sku';
+      }
+    }
 
+    if( !$id )
+      throw new \InvalidArgumentException( 'Can not find product identifier');
 
     // Product query
     // ----------------
-    
+
+    // TODO: add status restriction if 
+    // current user is not loggued to Backend    
     $productOptions = [
-        'includes' => [ 'images', 'categories', 'options' ]
+        'includes' => [ 'images', 'categories', 'options', 'translations' ]
       , 'where'    => [
-            ['id', '=', $id]
-          , ['status', '!=', 'draft']
+            ['status', '!=', 'draft']
           , ['status', '!=', 'hidden']
         ]
     ];
 
     // Get product
     // -----------------
-    $product = \Subbly\Subbly::api('subbly.product')->all( $productOptions )->toArray();
 
-    if( count( $product ) != 1 )
+    try
     {
-      $product = false;
+      $product = \Subbly\Subbly::api('subbly.product')->find( $id, $productOptions, $field )->toArray();
+    }
+    catch (\Exception $e)
+    {
+      throw new \InvalidArgumentException( $e->getMessage() );
     }
 
-    $buffer = '';
-
-    if( !$product) 
-    {
-      $template->setStopToken('else');
-      $template->discard();
-      $template->setStopToken(false);
-      $buffer = $template->render($context);
-    }
-    elseif( is_array( $product ) || $product instanceof \Traversable )
-    {
-      $isList = is_array($product) && (array_keys($product) === range(0, count($product) - 1));
-      $index = 0;
-      $lastIndex = $isList ? (count($product) - 1) : false;
-
-      foreach( $product as $key => $var ) 
-      {
-        $specialVariables = array(
-            '@index' => $index,
-            '@first' => ($index === 0),
-            '@last' => ($index === $lastIndex),
-        );
-        if (!$isList) {
-            $specialVariables['@key'] = $key;
-        }
-        $context->pushSpecialVariables($specialVariables);
-        $context->push($var);
-        $template->setStopToken('else');
-        $template->rewind();
-        $buffer .= $template->render($context);
-        $context->pop();
-        $context->popSpecialVariables();
-        $index++;
-      }
-
-      $template->setStopToken(false);
-    }
+    $context->push($product);
+    $template->rewind();
+    $buffer .= $template->render($context);
+    $context->pop();
 
     return $buffer;
   }

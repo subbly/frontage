@@ -28,6 +28,8 @@ class Frontage
     , 'addressId'   => false
     , 'orderId'     => false
     , 'productId'   => false
+    , 'productSku'  => false
+    , 'productSlug' => false
   );
 
   protected function run()
