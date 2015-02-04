@@ -29,6 +29,14 @@ class UserAddressesHelper extends CustomHelper
 
     // Get Address
     // -----------------
+    
+    $options   = [
+      'where' => [
+        // prevent user to access
+        // somebody else data
+        ['uid', '=', $user->uid]
+      ]
+    ];
 
     try
     {
