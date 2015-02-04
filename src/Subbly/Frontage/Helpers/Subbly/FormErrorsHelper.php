@@ -10,9 +10,14 @@ class FormErrorsHelper extends CustomHelper
 {
   /**
    * Execute the helper
-   * {{url 'filename'}}
-   * {{url 'filename' this }}
-   * {{url 'filename' with {"id":12, "slug":"test"} }}
+   * {{#formErrors login}}
+   *  <ul>
+   *    {{#each errors}}
+   *    <li>{{this}}</li>
+   *    {{/each}}
+   *  </ul>
+   * {{/formErrors}}
+   * Catch form validation's erros. 
    *
    * @param \Handlebars\Template $template The template instance
    * @param \Handlebars\Context  $context  The current context
@@ -24,10 +29,25 @@ class FormErrorsHelper extends CustomHelper
   public function execute( Template $template, Context $context, $args, $source )
   {
     $buffer = '';
+    $args   = $template->parseArguments( $args );
     $errors = \Session::get('errors', new \Illuminate\Support\MessageBag);
 
-    if( $errors->any() )
-      return 'errors';
+    if( !count( $args ) )
+      return $buffer;
+
+    if( !method_exists( $errors, 'hasBag' ) )
+      return $buffer;
+
+    if( $errors->hasBag( $args[0] ) )
+    {
+
+      $context->push( ['errors' => $errors->{$args[0]}->all() ] );
+      $template->rewind();
+      $buffer .= $template->render( $context );
+      $context->pop();
+
+      return $buffer;
+    }
 
     return $buffer;
   }

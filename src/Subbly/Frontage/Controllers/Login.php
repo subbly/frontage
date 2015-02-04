@@ -4,6 +4,8 @@ namespace Subbly\Frontage\Controllers;
 
 use Subbly\Subbly;
 use Input;
+use Redirect;
+use Validator;
 
 class Login
   extends Action 
@@ -18,7 +20,15 @@ class Login
 
   public function run()
   {
-    $this->formValidator( $this->rules );
+    $validator = Validator::make( Input::all(), $this->rules );
+    $messages  = new \Illuminate\Support\MessageBag;
+
+    if( $validator->fails() ) 
+    {
+      return Redirect::back()
+              ->withErrors( $validator, 'login' )
+              ->withInput( Input::except('password') );
+    }
 
     try 
     {
@@ -38,8 +48,11 @@ class Login
           'Cartalyst\\Sentry\\Users\\UserBannedException',
       ))) 
       {
-dd('user');        
-        return $this->errorResponse($e->getMessage());
+        $messages->add('message', $e->getMessage() );
+
+        return Redirect::back()
+                ->withErrors( $messages, 'login' )
+                ->withInput( Input::except('password') );
       }
       else if( in_array( get_class( $e ), array(
           'Cartalyst\\Sentry\\Users\\LoginRequiredException',
@@ -48,13 +61,19 @@ dd('user');
           'Cartalyst\\Sentry\\Users\\UserNotFoundException',
       ))) 
       {
-dd('validation', $e->getMessage());
-        return $this->errorResponse('Auth required! Something is wrong with your credentials.', 401);
+        $messages->add('message', $e->getMessage() );
+
+        return Redirect::back()
+                ->withErrors( $messages, 'login' )
+                ->withInput( Input::except('password') );
       }
       dd('fatal');
       return $this->errorResponse('FATAL ERROR!', 500);
     }
-      return \Redirect::back();
-dd('ok');
+
+    if( Input::has('redirect') )
+      return Redirect::to( Input::get('redirect') );
+
+    return Redirect::back();
   }
 }
