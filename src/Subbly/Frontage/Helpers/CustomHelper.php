@@ -11,6 +11,16 @@ abstract class CustomHelper
 
     foreach( $routesMap as $uri => $page )
     {
+      // match loggued user restriction
+      preg_match( '/([[:ascii:]]+)(@([[:ascii:]]+)?)/i', $page, $matches );
+
+      // need auth
+      if( count( $matches ) > 0 )
+      {
+        // route's filename 
+        $page = $matches[1];
+      }
+
       if( $page == $routeName )
       {
         return $uri;
