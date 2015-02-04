@@ -13,6 +13,7 @@ return [
       , 'userAddress'   => 'Subbly\Frontage\Helpers\Subbly\UserAddressHelper'
       // , 'isUserLogin'   => 'Subbly\Frontage\Helpers\Subbly\UserCheckHelper'
       , 'loginFrom'     => 'Subbly\Frontage\Helpers\Post\LoginHelper'
+      , 'getInput'      => 'Subbly\Frontage\Helpers\Post\GetInput' 
 
       , 'compare'       => 'Subbly\Frontage\Helpers\Usefull\CompareHelper'
       , 'capitalize'    => 'Subbly\Frontage\Helpers\Usefull\CapitalizeHelper'
