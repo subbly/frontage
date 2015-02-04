@@ -32,15 +32,20 @@ class FormErrorsHelper extends CustomHelper
     $args   = $template->parseArguments( $args );
     $errors = \Session::get('errors', new \Illuminate\Support\MessageBag);
 
+    // no form specified
+    // return empty buffer
     if( !count( $args ) )
       return $buffer;
 
+    // if MessageBag does not exists
+    // return empty buffer
     if( !method_exists( $errors, 'hasBag' ) )
       return $buffer;
 
+    // Defined MessageBag exists
+    // so we push errors list to the context
     if( $errors->hasBag( $args[0] ) )
     {
-
       $context->push( ['errors' => $errors->{$args[0]}->all() ] );
       $template->rewind();
       $buffer .= $template->render( $context );
@@ -49,6 +54,7 @@ class FormErrorsHelper extends CustomHelper
       return $buffer;
     }
 
+    // return empty buffer
     return $buffer;
   }
 }
