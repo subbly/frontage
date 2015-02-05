@@ -75,29 +75,47 @@ class UrlHelper extends CustomHelper
 
   private function buildUri( $context, $schema, $root )
   {
-    // find matches against the regex and replaces them the callback function.
-    return $root . preg_replace_callback(
+      preg_match_all( '/\{(.*?)\}/', $schema, $matches );
 
-       // Matches parts to be replaced: '{var}'
-       '/(\{.*?\})/',
+      $optionals  = array_map(function($m) { return trim( $m, '?' ); }, $matches[1]);
 
-       // Callback function. Use 'use()' or define arrays as 'global'
-       function( $matches ) use ( $context, $schema )
-       {
-          $var = trim( $matches[1], '{}' );
+      $clean      = preg_replace('/\{(\w+?)\?\}/', '@$1', $schema );
+      $clean2     = preg_replace('/\{(\w+?)\}/', '@$1', $clean );
 
-           // Remove curly brackets from the match
-           // then use it as variable name
-          $str = ( isset( $context[ $var ] ) ) 
-                 ? $context[ $var ]
-                 : $var;
+      $exploded   = preg_split('/[\/:-]/', $clean2 );
+      $separators = preg_split('/[^\/:-]/', $clean, -1, PREG_SPLIT_NO_EMPTY );
 
-          // Pick an item from the related array whichever.
-          return $str;
-       },
+      $params     = [];
 
-       // Input string to search in.
-       $schema
-    );    
+      foreach( $exploded as $key => $value )
+      {
+        $pos = strpos( $value, '@');
+
+        // prefix route's slash
+        if( empty( $value ) )
+          continue;
+
+        if( $pos === false )
+        {
+          $params[] = $value;
+          continue;
+        }
+
+        $var = ltrim( $value, '@' );
+
+        if( !isset( $context[ $var ] ) )
+          continue;
+
+        $params[] = $context[ $var ];
+      }
+
+      $link = '';
+
+      foreach( $params as $key => $param )
+      {
+        $link .= $separators[ $key ] . $param;
+      }
+
+      return $link;
   }
 }
