@@ -28,15 +28,15 @@ class GetInput extends CustomHelper
     if( $countAgrs == 0 )
       return '';
 
-    $old     = \Input::old( $args[0]->getString(), false );
-    $default = false;
+    if( !$args[0] instanceof \Handlebars\String )
+      return '';
+
+    $old = \Input::old( $args[0]->getString(), false );
 
     if( $old )
       return $old;
 
-    if( $countAgrs == 2 )
-      return \Input::get( $args[1]->getString(), false  );
+    return \Input::get( $args[0]->getString(), $context->get( $args[0]->getString() )  );
 
-    return '';
   }
 }
