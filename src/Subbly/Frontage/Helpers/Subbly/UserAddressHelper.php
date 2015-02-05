@@ -46,8 +46,10 @@ class UserAddressHelper extends CustomHelper
         $id = $props['addressId'];
     }
 
+    // new address
     if( !$id )
-      throw new \InvalidArgumentException( 'Can not find product identifier');
+      return $template->render($context);
+      // throw new \InvalidArgumentException( 'Can not find user address ID');
 
     // Get Address
     // -----------------
