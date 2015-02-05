@@ -49,7 +49,6 @@ abstract class CustomHelper
           if( isset( $property[1] ) )
           {
             $properties[ $key ] = $context->get( $property[1] );
-            break;
           }
         }
       }
