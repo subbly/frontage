@@ -7,7 +7,7 @@ use Handlebars\Template;
 use Subbly\Frontage\Helpers\CustomHelper;
 use Subbly\Frontage\FrontageInvalidHelperException;
 
-class AddToCartHelper extends CustomHelper
+class CartAddHelper extends CustomHelper
 {
   /**
    * Execute the helper

@@ -22,9 +22,10 @@ return [
 
       // cart
       , 'cart'          => 'Subbly\Frontage\Helpers\Subbly\CartHelper' 
+      , 'hasCart'       => 'Subbly\Frontage\Helpers\Subbly\CartToggleHelper'  
       , 'cartTotal'     => 'Subbly\Frontage\Helpers\Subbly\CartTotalHelper' 
       , 'cartCount'     => 'Subbly\Frontage\Helpers\Subbly\CartCountHelper' 
-      , 'cartAdd'       => 'Subbly\Frontage\Helpers\Post\AddToCartHelper'
+      , 'cartAdd'       => 'Subbly\Frontage\Helpers\Post\CartAddHelper'
       , 'carUpdateQty'  => 'Subbly\Frontage\Helpers\Post\CartUpdateQtyHelper' 
       , 'cartRemove'    => 'Subbly\Frontage\Helpers\Post\CartRemoveHelper'
       , 'cartEmpty'     => 'Subbly\Frontage\Helpers\Post\CartDestroyHelper' 
