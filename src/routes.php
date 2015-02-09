@@ -77,8 +77,9 @@ foreach( Config::get('subbly.frontageUri') as $uri => $tpl )
     $themePublic  = \URL::to( '/themes/' . $currentTheme . DS );
 
     preg_match_all( '/\{(.*?)\}/', $uri, $routeArgs );
+
     $inputs = array_map(function($m) { return trim( $m, '?' ); }, $routeArgs[1]);
-// dd( $inputs );
+
     // match loggued user restriction
     preg_match( '/([[:ascii:]]+)(@([[:ascii:]]+)?)/i', $tpl, $restricted );
 
@@ -215,4 +216,3 @@ App::error( function( FrontageInvalidHelperException $exception )
 {
     exit( $exception->getMessage() );
 });
-// Route::any('{url}', 'Subbly\Frontage\Controllers\Frontage@run')->where('url', '.*');
