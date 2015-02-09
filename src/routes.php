@@ -123,6 +123,22 @@ foreach( Config::get('subbly.frontageUri') as $uri => $tpl )
 
     // dd(func_get_args(), $inputs, $params, $uri, $tpl, $restricted );
 
+    // TPL data
+
+    $data = [
+        'inputs'      => $params
+      , 'themes'      => $themePublic
+      , 'settings'    => $settings
+      , 'user'        => $currentUser
+    ];
+
+    $debugMode = Config::get('app.debug');
+
+    if( $debugMode )
+    {
+      $data = array_merge( $data, Config::get('frontage::dataTestSet') );
+    }
+
     // TPL Engine
 
     // Filesystem's options
@@ -155,73 +171,7 @@ foreach( Config::get('subbly.frontageUri') as $uri => $tpl )
 
     # Will render the model to the templates/main.tpl template
     // TODO: add cache
-    return $engine->render( $tpl, [
-        'inputs'      => $params
-      , 'themes'      => $themePublic
-      , 'settings'    => $settings
-      , 'isUserLogin' => $isUserLogin
-      , 'user'        => $currentUser
-      // tests
-      // , 'name'     => 'Test PAGE'
-      // , 'isActive' => false
-      // , 'first'    => true
-      // , 'second'   => 'a'
-      // , 'other_genres' => 
-      //   [
-      //       'genres' => 
-      //       [
-      //           'yop'
-      //         , 'test'
-      //       ]
-      //   ]
-      // , 'genres' => 
-      //   [
-      //         'Hip-Hop'
-      //       , 'Rap'
-      //       , 'Techno'
-      //       , 'Country'
-      //   ]
-      // , 'object' => [
-      //     'key' => 'value'
-      //   ]
-      // , 'cars' => 
-      //   [
-      //     [
-      //       'category' => 'Foreign',
-      //       'count' => 4,
-      //       'list' => [
-      //           'Toyota',
-      //           'Kia',
-      //           'Honda',
-      //           'Mazda'
-      //       ]
-      //     ]
-      //   , [
-      //       'category' => 'WTF',
-      //       'count' => 1,
-      //       'list' => [
-      //           'Fiat'
-      //       ]
-      //     ]
-      //   , [
-      //       'category' => 'Luxury',
-      //       'count' => 2,
-      //       'list' => [
-      //           'Mercedes Benz',
-      //           'BMW'
-      //       ]
-      //     ]
-      //   , [
-      //       'category' => 'Rich People Shit',
-      //       'count' => 3,
-      //       'list' => [
-      //           'Ferrari',
-      //           'Bugatti',
-      //           'Rolls Royce'
-      //       ]
-      //     ]
-      // ]
-    ]);
+    return $engine->render( $tpl, $data );
 
   });
 }

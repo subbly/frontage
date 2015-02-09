@@ -22,4 +22,66 @@ return [
       , 'formatDate'    => 'Subbly\Frontage\Helpers\Usefull\FormatDateHelper'
       , 'default'       => 'Subbly\Frontage\Helpers\Usefull\DefaultHelper'
     ]
+
+  , 'dataTestSet' => [
+        'name'     => 'Test PAGE'
+      , 'isActive' => false
+      , 'first'    => true
+      , 'second'   => 'a'
+      , 'other_genres' => 
+        [
+            'genres' => 
+            [
+                'yop'
+              , 'test'
+            ]
+        ]
+      , 'genres' => 
+        [
+              'Hip-Hop'
+            , 'Rap'
+            , 'Techno'
+            , 'Country'
+        ]
+      , 'object' => [
+          'key' => 'value'
+        ]
+      , 'cars' => 
+        [
+          [
+            'category' => 'Foreign',
+            'count' => 4,
+            'list' => [
+                'Toyota',
+                'Kia',
+                'Honda',
+                'Mazda'
+            ]
+          ]
+        , [
+            'category' => 'WTF',
+            'count' => 1,
+            'list' => [
+                'Fiat'
+            ]
+          ]
+        , [
+            'category' => 'Luxury',
+            'count' => 2,
+            'list' => [
+                'Mercedes Benz',
+                'BMW'
+            ]
+          ]
+        , [
+            'category' => 'Rich People Shit',
+            'count' => 3,
+            'list' => [
+                'Ferrari',
+                'Bugatti',
+                'Rolls Royce'
+            ]
+          ]
+      ]
+  ]
 ];
