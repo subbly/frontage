@@ -7,7 +7,7 @@ use Input;
 use Redirect;
 use Validator;
 
-class Login
+class Session
   extends Action 
 {
   /**
@@ -18,7 +18,7 @@ class Login
     , 'password' => 'required'
   );
 
-  public function run()
+  public function login()
   {
     $validator = Validator::make( Input::all(), $this->rules );
     $messages  = new \Illuminate\Support\MessageBag;
@@ -70,6 +70,16 @@ class Login
       dd('fatal');
       return $this->errorResponse('FATAL ERROR!', 500);
     }
+
+    if( Input::has('redirect') )
+      return Redirect::to( Input::get('redirect') );
+
+    return Redirect::back();
+  }
+
+  public function logout()
+  {
+    Subbly::api('subbly.user')->logout();
 
     if( Input::has('redirect') )
       return Redirect::to( Input::get('redirect') );

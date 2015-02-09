@@ -30,11 +30,26 @@ Route::group( [
     , 'before' => 'csrf'
 ], function() 
 {
+  /*
+   * Login/logout
+   */
   Route::post('/login', [
       'as'     => 'frontage.form.login'
-    , 'uses'   => 'Subbly\Frontage\Controllers\Login@run'
+    , 'uses'   => 'Subbly\Frontage\Controllers\Session@login'
   ]);
 
+  Route::post('/logout', [
+      'as'     => 'frontage.form.logout'
+    , 'uses'   => 'Subbly\Frontage\Controllers\Session@logout'
+  ]);
+
+  /*
+   * User
+   */
+
+  /*
+   * Cart
+   */
   Route::post('/cart/add', [
       'as'     => 'frontage.form.addtocart'
     , 'uses'   => 'Subbly\Frontage\Controllers\Cart@addTo'
@@ -59,6 +74,10 @@ Route::group( [
       'as'     => 'frontage.form.address'
     , 'uses'   => 'Subbly\Frontage\Controllers\Address@run'
   ]);
+
+  /*
+   * Checkout
+   */
 });
 
 /*

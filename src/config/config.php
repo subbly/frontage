@@ -9,12 +9,16 @@ return [
       , 'assets'        => 'Subbly\Frontage\Helpers\Subbly\AssetsHelper'
       , 'formatPrice'   => 'Subbly\Frontage\Helpers\Subbly\PriceHelper'
       , 'formErrors'    => 'Subbly\Frontage\Helpers\Subbly\FormErrorsHelper'
+      , 'getInput'      => 'Subbly\Frontage\Helpers\Post\GetInput' 
+
+      // Session
+      , 'loginFrom'     => 'Subbly\Frontage\Helpers\Post\LoginHelper'
+      , 'logoutFrom'    => 'Subbly\Frontage\Helpers\Post\LogoutHelper'
+
+      // User
+      , 'addressFrom'   => 'Subbly\Frontage\Helpers\Post\AddressHelper'
       , 'userAddresses' => 'Subbly\Frontage\Helpers\Subbly\UserAddressesHelper'
       , 'userAddress'   => 'Subbly\Frontage\Helpers\Subbly\UserAddressHelper'
-      // , 'isUserLogin'   => 'Subbly\Frontage\Helpers\Subbly\UserCheckHelper'
-      , 'loginFrom'     => 'Subbly\Frontage\Helpers\Post\LoginHelper'
-      , 'addressFrom'   => 'Subbly\Frontage\Helpers\Post\AddressHelper'
-      , 'getInput'      => 'Subbly\Frontage\Helpers\Post\GetInput' 
 
       // cart
       , 'cart'          => 'Subbly\Frontage\Helpers\Subbly\CartHelper' 

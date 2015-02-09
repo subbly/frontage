@@ -6,7 +6,7 @@ use Handlebars\Helper;
 use Handlebars\Template;
 use Subbly\Frontage\Helpers\CustomHelper;
 
-class LoginHelper extends CustomHelper
+class LogoutHelper extends CustomHelper
 {
   /**
    * Execute the helper
@@ -21,7 +21,7 @@ class LoginHelper extends CustomHelper
   public function execute( Template $template, Context $context, $args, $source )
   {
     $default = array( 
-      'route' => 'frontage.form.login'
+      'route' => 'frontage.form.logout'
     );
     
     $props = $this->parseProps( $args, $context );
@@ -34,9 +34,7 @@ class LoginHelper extends CustomHelper
     $buffer = \Form::open( $settings );
 
     if( count( $args ) == 1 && $args[0] instanceof \Handlebars\String )
-    {
       $buffer .= \Form::hidden('redirect', $this->getRouteUri( $args[0]->getString() ) );
-    }
 
     $buffer .= $template->render( $context );
     $buffer .= "\n".'</form>'."\n";
