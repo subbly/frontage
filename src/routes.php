@@ -5,6 +5,7 @@ use Handlebars\Loader\FilesystemLoader;
 use Subbly\Frontage\Helpers as Helpers;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Subbly\Subbly as Subbly;
+use Subbly\Frontage\FrontageInvalidHelperException;
 
 /*
  * Register Debugbar assets's path
@@ -34,6 +35,25 @@ Route::group( [
     , 'uses'   => 'Subbly\Frontage\Controllers\Login@run'
   ]);
 
+  Route::post('/cart/add', [
+      'as'     => 'frontage.form.addtocart'
+    , 'uses'   => 'Subbly\Frontage\Controllers\Cart@addTo'
+  ]);
+
+  Route::post('/cart/update', [
+      'as'     => 'frontage.form.updatecart'
+    , 'uses'   => 'Subbly\Frontage\Controllers\Cart@updateRow'
+  ]);
+
+  Route::post('/cart/remove', [
+      'as'     => 'frontage.form.removecart'
+    , 'uses'   => 'Subbly\Frontage\Controllers\Cart@removeRow'
+  ]);
+
+  Route::post('/cart/empty', [
+      'as'     => 'frontage.form.emptycart'
+    , 'uses'   => 'Subbly\Frontage\Controllers\Cart@emptyCart'
+  ]);
 
   Route::post('/account/address/{id?}', [
       'as'     => 'frontage.form.address'
@@ -66,10 +86,9 @@ foreach( Config::get('subbly.frontageUri') as $uri => $tpl )
 
     // Queries
     $settings     = Subbly::api('subbly.setting')->all()->toArray();
-    $isUserLogin  = Subbly::api('subbly.user')->check();
 
     // Current User
-    $currentUser = ( $isUserLogin )
+    $currentUser = ( Subbly::api('subbly.user')->check() )
                    ? Subbly::api('subbly.user')->currentUser()
                    : false;
 
@@ -191,4 +210,9 @@ App::error( function( MethodNotAllowedHttpException $exception )
     exit('503');
 });
 
+// TODO: custom error page
+App::error( function( FrontageInvalidHelperException $exception )
+{
+    exit( $exception->getMessage() );
+});
 // Route::any('{url}', 'Subbly\Frontage\Controllers\Frontage@run')->where('url', '.*');

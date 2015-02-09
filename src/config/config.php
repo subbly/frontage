@@ -16,6 +16,15 @@ return [
       , 'addressFrom'   => 'Subbly\Frontage\Helpers\Post\AddressHelper'
       , 'getInput'      => 'Subbly\Frontage\Helpers\Post\GetInput' 
 
+      // cart
+      , 'cart'          => 'Subbly\Frontage\Helpers\Subbly\CartHelper' 
+      , 'cartTotal'     => 'Subbly\Frontage\Helpers\Subbly\CartTotalHelper' 
+      , 'cartCount'     => 'Subbly\Frontage\Helpers\Subbly\CartCountHelper' 
+      , 'cartAdd'       => 'Subbly\Frontage\Helpers\Post\AddToCartHelper'
+      , 'carUpdateQty'  => 'Subbly\Frontage\Helpers\Post\CartUpdateQtyHelper' 
+      , 'cartRemove'    => 'Subbly\Frontage\Helpers\Post\CartRemoveHelper'
+      , 'cartEmpty'     => 'Subbly\Frontage\Helpers\Post\CartDestroyHelper' 
+
       , 'compare'       => 'Subbly\Frontage\Helpers\Usefull\CompareHelper'
       , 'capitalize'    => 'Subbly\Frontage\Helpers\Usefull\CapitalizeHelper'
       , 'capitalizeAll' => 'Subbly\Frontage\Helpers\Usefull\CapitalizeAllHelper'
