@@ -28,13 +28,16 @@ class CartToggleHelper extends CustomHelper
     if( !count( $cart ) ) 
     {
       $template->setStopToken('else');
-      $template->discard();
+      $template->discard($context);
       $template->setStopToken(false);
       $buffer = $template->render($context);
     }
     else
     {
-      $buffer = $template->render( $context );
+      $template->setStopToken('else');
+      $buffer = $template->render($context);
+      $template->setStopToken(false);
+      $template->discard($context);
     }
 
     return $buffer;
