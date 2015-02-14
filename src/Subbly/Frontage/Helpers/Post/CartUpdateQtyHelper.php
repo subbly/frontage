@@ -31,17 +31,9 @@ class CartUpdateQtyHelper extends CustomHelper
       throw new FrontageInvalidHelperException(
           '"carUpdateQty" helper need to be inside the "cart" helper.'
       );
-    
-    $props    = $this->parseProps( $args, $context );
-    $settings = ( $props ) 
-                ? array_merge( $default, $props )
-                : $default;
 
-    $buffer = \Form::open( $settings );
-    $buffer .= \Form::hidden('cartRowId', $cart['rowid'] );
-    $buffer .= $template->render( $context );
-    $buffer .= "\n".'</form>'."\n";
-
-    return $buffer;
+    return $this->buildForm( $template, $context, $args, $default, [
+      'cartRowId' => $cart['rowid']
+    ]);
   }
 }

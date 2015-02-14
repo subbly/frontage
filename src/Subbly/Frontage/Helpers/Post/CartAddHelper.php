@@ -31,29 +31,9 @@ class CartAddHelper extends CustomHelper
       throw new FrontageInvalidHelperException(
           '"AddToCar" helper need to be inside a "product".'
       );
-    
-    $props = $this->parseProps( $args, $context );
-    $args  = $template->parseArguments( $args );
 
-    $settings = ( $props ) 
-                ? array_merge( $default, $props )
-                : $default;
-
-    $fields = '';
-
-    if( count( $args ) == 1 && $args[0] instanceof \Handlebars\String )
-    {
-      $fields .= \Form::hidden('redirect', $this->getRouteUri( $args[0]->getString() ) );
-    }
-
-    $fields .= \Form::hidden('id', $product['id'] );
-
-    $buffer = \Form::open( $settings );
-    $buffer .= "\n".$fields."\n";
-    $buffer .= $template->render( $context );
-    $buffer .= "\n".'</form>'."\n";
-    // $context->pop();
-
-    return $buffer;
+    return $this->buildForm( $template, $context, $args, $default, [
+      'id' => $product['id']
+    ]);
   }
 }
