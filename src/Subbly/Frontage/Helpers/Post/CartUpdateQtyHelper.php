@@ -22,7 +22,7 @@ class CartUpdateQtyHelper extends CustomHelper
   public function execute( Template $template, Context $context, $args, $source )
   {
     $default = array( 
-        'route'    => 'frontage.form.addtocart'
+        'route'    => 'frontage.form.updatecart'
     );
 
     $cart = $context->get('this');
