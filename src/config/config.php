@@ -30,6 +30,8 @@ return [
       , 'cartRemove'    => 'Subbly\Frontage\Helpers\Post\CartRemoveHelper'
       , 'cartEmpty'     => 'Subbly\Frontage\Helpers\Post\CartDestroyHelper' 
 
+      , 'checkout'      => 'Subbly\Frontage\Helpers\Post\CheckoutHelper' 
+
       , 'compare'       => 'Subbly\Frontage\Helpers\Usefull\CompareHelper'
       , 'capitalize'    => 'Subbly\Frontage\Helpers\Usefull\CapitalizeHelper'
       , 'capitalizeAll' => 'Subbly\Frontage\Helpers\Usefull\CapitalizeAllHelper'

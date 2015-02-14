@@ -78,6 +78,10 @@ Route::group( [
   /*
    * Checkout
    */
+  Route::post('/checkout', [
+      'as'     => 'frontage.form.checkout'
+    , 'uses'   => 'Subbly\Frontage\Controllers\Checkout@run'
+  ]);
 });
 
 /*
