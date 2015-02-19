@@ -21,7 +21,7 @@ class LoginHelper extends CustomHelper
   public function execute( Template $template, Context $context, $args, $source )
   {
     $default = array( 
-      'route' => 'frontage.form.login'
+      'route' => 'subbly.postcontroller.login'
     );
     
     return $this->buildForm( $template, $context, $args, $default );

@@ -22,7 +22,7 @@ class CartDestroyHelper extends CustomHelper
   public function execute( Template $template, Context $context, $args, $source )
   {
     $default = array( 
-        'route'    => 'frontage.form.emptycart'
+        'route'    => 'subbly.postcontroller.emptycart'
     );
 
     return $this->buildForm( $template, $context, $args, $default );

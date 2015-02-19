@@ -21,7 +21,7 @@ class AddressHelper extends CustomHelper
   public function execute( Template $template, Context $context, $args, $source )
   {
     $default = array( 
-      'route' => 'frontage.form.address'
+      'route' => 'subbly.postcontroller.address'
     );
 
     // edit recorded address

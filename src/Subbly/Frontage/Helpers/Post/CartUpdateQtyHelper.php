@@ -22,7 +22,7 @@ class CartUpdateQtyHelper extends CustomHelper
   public function execute( Template $template, Context $context, $args, $source )
   {
     $default = array( 
-        'route'    => 'frontage.form.updatecart'
+        'route'    => 'subbly.postcontroller.updatecart'
     );
 
     $cart = $context->get('this');

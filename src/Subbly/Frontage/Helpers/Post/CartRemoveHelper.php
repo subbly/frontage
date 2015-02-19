@@ -22,7 +22,7 @@ class CartRemoveHelper extends CustomHelper
   public function execute( Template $template, Context $context, $args, $source )
   {
     $default = array( 
-        'route'    => 'frontage.form.removecart'
+        'route'    => 'subbly.postcontroller.removecart'
     );
 
     $cart = $context->get('this');

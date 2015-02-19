@@ -21,7 +21,7 @@ class LogoutHelper extends CustomHelper
   public function execute( Template $template, Context $context, $args, $source )
   {
     $default = array( 
-      'route' => 'frontage.form.logout'
+      'route' => 'subbly.postcontroller.logout'
     );
 
     return $this->buildForm( $template, $context, $args, $default );

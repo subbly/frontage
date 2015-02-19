@@ -22,7 +22,7 @@ class CartAddHelper extends CustomHelper
   public function execute( Template $template, Context $context, $args, $source )
   {
     $default = array( 
-        'route'    => 'frontage.form.addtocart'
+        'route'    => 'subbly.postcontroller.addtocart'
     );
 
     $product = $context->get('this');
