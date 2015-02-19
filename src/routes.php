@@ -45,14 +45,14 @@ foreach( Config::get('subbly.frontageUri') as $uri => $tpl )
     // dd(func_get_args(), $inputs, $uri, $tpl, $restricted );
 
     // Queries
-    $settings     = Subbly::api('subbly.setting')->all()->toArray();
-
-    // Current User
+      // Shop settings
+    $settings    = Subbly::api('subbly.setting')->all()->toArray();
+      // Current User
     $currentUser = ( Subbly::api('subbly.user')->check() )
                    ? Subbly::api('subbly.user')->currentUser()
                    : false;
 
-    // need auth
+    // if route need auth
     if( count( $restricted ) > 0 )
     {
       // user is not logged
@@ -111,6 +111,8 @@ foreach( Config::get('subbly.frontageUri') as $uri => $tpl )
       , 'user'        => $currentUser
     ];
 
+    // if developpement env
+    // add some dataset
     $debugMode = Config::get('app.debug');
 
     if( $debugMode )
@@ -120,20 +122,21 @@ foreach( Config::get('subbly.frontageUri') as $uri => $tpl )
 
     // TPL Engine
 
-    // Filesystem's options
+      // Filesystem's options
     $partialsLoader = new FilesystemLoader( $themePath, [
         'extension' => 'html'
     ]);
 
-    // init Handlebars
+      // init Handlebars
     $engine = new Handlebars([
         'loader'          => $partialsLoader
       , 'partials_loader' => $partialsLoader
     ]);
 
+      // Handelbars Helpers instance
     $helpers = new \JustBlackBird\HandlebarsHelpers\Helpers();
     
-    // init Handlebars
+      // init Handlebars
     $engine = new Handlebars([
         'loader'          => $partialsLoader
       , 'partials_loader' => $partialsLoader
@@ -142,7 +145,7 @@ foreach( Config::get('subbly.frontageUri') as $uri => $tpl )
 
     $nativeHelpers = Config::get('frontage::helpers');
 
-    // Load native Helpers
+      // Load Subbly's native Helpers
     foreach( $nativeHelpers as $key => $class )
     {
       $engine->addHelper( $key, new $class() );
